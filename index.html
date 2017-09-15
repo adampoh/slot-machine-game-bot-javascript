@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>jQuery Slot Machine</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2.0">
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/jquery.slotmachine.css" type="text/css" media="screen" />
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/jquery.slotmachine.js"></script>
+
+</head>
+
+<body>
+    <div class="header-line"></div>
+
+    <div id="randomize" style="margin-left: -400px;">
+        <div class="content container" style="text-align: center;max-width: 1200px;">
+            <h1>Randomize your stuff!</h1>
+
+            <div class="row">
+                <div class="col-xs-4">
+                    <div id="machine1" class="randomizeMachine" style="padding-top:100px;">
+                        <div><img src="img/slot1.png" style="border-bottom: 10px solid coral;" /></div>
+                        <div><img src="img/slot2.png" style="border-bottom: 10px solid coral;" /></div>
+                        <div><img src="img/slot3.png" style="border-bottom: 10px solid coral;" /></div>
+                        <div><img src="img/slot4.png" style="border-bottom: 10px solid coral;" /></div>
+                        <div><img src="img/slot5.png" style="border-bottom: 10px solid coral;" /></div>
+                        <div><img src="img/slot6.png" style="border-bottom: 10px solid coral;" /></div>
+                    </div>
+                </div>
+
+                <div class="col-xs-4" style="padding-left: 130px;">
+                    <div id="machine2" class="randomizeMachine" style="padding-top:100px;">
+                        <div><img src="img/slot1.png" style="border-bottom: 10px solid coral;" /></div>
+                        <div><img src="img/slot2.png" style="border-bottom: 10px solid coral;" /></div>
+                        <div><img src="img/slot3.png" style="border-bottom: 10px solid coral;" /></div>
+                        <div><img src="img/slot4.png" style="border-bottom: 10px solid coral;" /></div>
+                        <div><img src="img/slot5.png" style="border-bottom: 10px solid coral;" /></div>
+                        <div><img src="img/slot6.png" style="border-bottom: 10px solid coral;" /></div>
+                    </div>
+                </div>
+
+                <div class="col-xs-4" style="padding-left: 245px;">
+                    <div id="machine3" class="randomizeMachine" style="padding-top:100px;">
+                        <div><img src="img/slot1.png" style="border-bottom: 10px solid coral;" /></div>
+                        <div><img src="img/slot2.png" style="border-bottom: 10px solid coral;" /></div>
+                        <div><img src="img/slot3.png" style="border-bottom: 10px solid coral;" /></div>
+                        <div><img src="img/slot4.png" style="border-bottom: 10px solid coral;" /></div>
+                        <div><img src="img/slot5.png" style="border-bottom: 10px solid coral;" /></div>
+                        <div><img src="img/slot6.png" style="border-bottom: 10px solid coral;" /></div>
+                    </div>
+                    <!--<div id="machine1Result" class="col-xs-4 machineResult">Index: 0</div>
+                    <div id="machine2Result" class="col-xs-4 machineResult">Index: 1</div>
+                    <div id="machine3Result" class="col-xs-4 machineResult">Index: 2</div>-->
+                </div>
+            </div>
+
+            <div>
+                <div class="btn-group btn-group-justified btn-group-randomize" role="group" style="padding-left: 370px;">
+                    <div id="ranomizeButton" type="button" class="btn btn-danger btn-lg">Shuffle</div>
+                </div>
+                <div class="btn-group btn-group-justified btn-group-randomize" role="group" style="padding-left: 380px;">
+                    <input type="text" id="winPercent" placeholder="please input 0~100" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            var machine1 = $("#machine1").slotMachine({
+                active: 0,
+                delay: 500
+            });
+
+            var machine2 = $("#machine2").slotMachine({
+                active: 1,
+                delay: 500,
+                direction: 'down'
+            });
+
+            var machine3 = $("#machine3").slotMachine({
+                active: 2,
+                delay: 500
+            });
+
+
+
+            function onComplete(active) {
+                switch (this.element[0].id) {
+                    case 'machine1':
+                        // this.active = 0;
+                        $("#machine1Result").text("Index: " + this.active);
+                        // alert("Index: " + this.active); ////////this.active=stop image
+                        break;
+                    case 'machine2':
+                        $("#machine2Result").text("Index: " + this.active);
+                        // alert("Index: " + this.active);
+                        break;
+                    case 'machine3':
+                        $("#machine3Result").text("Index: " + this.active);
+                        // alert("Index: " + this.active);
+                        break;
+                }
+            }
+
+            $("#ranomizeButton").click(function() {
+                machine1.autoSlot();
+                machine1.shuffle(5, onComplete);
+
+                setTimeout(function() {
+                    machine2.shuffle(5, onComplete);
+                }, 500);
+
+                setTimeout(function() {
+                    machine3.shuffle(5, onComplete);
+                }, 1000);
+
+            })
+        });
+    </script>
+</body>
+
+</html>
